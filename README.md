@@ -51,7 +51,7 @@ typedef union{
 			struct hpcuid_discriminators{
 				uint32_t increment;
 				uint32_t timestamp;
-			};
+			}hpcuid_discriminators;
 		};
 		union{
 			uint64_t globals;
@@ -59,10 +59,9 @@ typedef union{
 				uint32_t processid;
 				uint32_t machineid:24;
 				uint32_t _reserved:8;
-			};
+			}hpcuid_globals;
 		};
 	};
-
 }hpcuid_t;
 ```
 And on big-endian systems:
@@ -76,14 +75,14 @@ typedef union{
 				uint32_t _reserved:8;
 				uint32_t machineid:24;
 				uint32_t processid;
-			};
+			}hpcuid_globals;
 		};
 		union{
 			uint64_t discriminators;
 			struct hpcuid_discriminators{
 				uint32_t timestamp;
 				uint32_t increment;
-			};
+			}hpcuid_discriminators;
 		};
 	};
 }hpcuid_t;
