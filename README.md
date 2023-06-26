@@ -20,16 +20,6 @@ typedef struct{
 	uint32_t _reserved:8;
 }hpcuid_t;
 ```
-On big-endian systems, the order is reversed:
-```c
-typedef struct{
-	uint32_t _reserved:8;
-	uint32_t machineid:24;
-	uint32_t processid;
-	uint32_t timestamp;
-	uint32_t increment;
-}hpcuid_t;
-```
 Care should be taken to make sure process IDs are not shared between CPU cores and any accelerators on the same machine.
 Process IDs MUST be unique. For development purposes, a non-clustered machine may use a machine ID of `0x00'00'00`, making the first 32 bits all zeros.
 It is expected that any machine capable of being in a cluster has timekeeping and multithreading capabilities, so the process ID and timestamp must still be calculated.
@@ -60,29 +50,6 @@ typedef union{
 				uint32_t machineid:24;
 				uint32_t _reserved:8;
 			}hpcuid_globals;
-		};
-	};
-}hpcuid_t;
-```
-And on big-endian systems:
-```c
-typedef union{
-	unsigned __int128 as_u128;
-	struct{
-		union{
-			uint64_t globals;
-			struct hpcuid_globals{
-				uint32_t _reserved:8;
-				uint32_t machineid:24;
-				uint32_t processid;
-			}hpcuid_globals;
-		};
-		union{
-			uint64_t discriminators;
-			struct hpcuid_discriminators{
-				uint32_t timestamp;
-				uint32_t increment;
-			}hpcuid_discriminators;
 		};
 	};
 }hpcuid_t;
