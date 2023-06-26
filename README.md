@@ -42,6 +42,10 @@ typedef union{
 				uint32_t increment;
 				uint32_t timestamp;
 			}hpcuid_discriminators;
+			struct{
+				uint32_t increment;
+				uint32_t timestamp;
+			};
 		};
 		union{
 			uint64_t globals;
@@ -50,6 +54,11 @@ typedef union{
 				uint32_t machineid:24;
 				uint32_t _reserved:8;
 			}hpcuid_globals;
+			struct{
+				uint32_t processid;
+				uint32_t machineid:24;
+				uint32_t _reserved:8;
+			};
 		};
 	};
 }hpcuid_t;
