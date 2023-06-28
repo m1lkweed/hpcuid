@@ -1,4 +1,4 @@
-# HPCUID Specification 0.0.2
+# HPCUID Specification 0.0.3
 
 No UID scheme is suitable for all use-cases. With that in mind, the following is a best-effort attempt at a UID generation scheme for HPC environments.
 HPCUID is a proposal for easily-constructable unique identifiers designed to match the needs and abilities of high-performance compute clusters. These UIDs can act as snowflakes, database keys, or contention tie-breakers.
@@ -10,7 +10,7 @@ The basic structure of an HPCUID is as follows:
 2. The next 3 bytes are the lower three bytes (NIC) of the hardware MAC address of the node or device.
 3. The next 4 bytes are a unique ID of the current thread/process, such as an OS-given PID or GPU-based global index. This, along with the previous two entries, should be constant for all generated HPCUIDs throughout the lifetime of a thread.
 4. The next 4 bytes are an unsigned timestamp representing the number of seconds elapsed since 2001-01-01T00:00Z.
-5. The next and final 4 bytes are an unsigned monotonic counter which MUST update every time an HPCUID is generated and resets to 0 then the timestamp is incremented.
+5. The next and final 4 bytes are an unsigned monotonic counter which MUST update every time an HPCUID is generated and resets to 0 then the timestamp is incremented. The counter MAY increase for every single HPCUID generated, such as in atomic implementations, or only for HPCUIDs generated with the same process ID. In all cases, each HPCUID MUST be unique.
 
 On compilers for the x86 family, the following C struct implements the basic layout of an HPCUID:
 ```c
