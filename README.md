@@ -29,7 +29,7 @@ It is expected that any machine capable of being in a cluster has timekeeping an
 This system has a number of benefits compared to other UIDs:
 * Non-configured: Unlike Snowflake UUIDs a central server is not required and no provisioning must be done.
 * Globally *k*-sortable and locally time-sorted per-worker, unlike UUIDs.
-* Unicity guaranteed with over 4 billion (32 bits) unique ids per second from each worker, 4 billion workers per machine, and over to 16 million (24 bits) machines in a single cluster.
+* Unicity guaranteed with over 4 billion (32 bits) unique ids per second from each worker, 4 billion workers per machine, and over 16 million (24 bits) machines in a single cluster.
 * Lock-free (unlike UUIDs v1 and v2)
 * GPU-friendly and future-proof: An RTX 4090 only has 16,384 cores--1/65536th of the process ID space--and a clock speed of 2.5 GHz--less than half of what the increment field can support per second.
 
